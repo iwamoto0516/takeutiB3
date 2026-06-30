@@ -31,6 +31,15 @@ public class WallMove {
     board.horizontalWall[row][col+1] = true;
     board.horizontalCenter[row][col] = true;
 
+    // 経路確認
+    if(!pathFinder.hasPath(board,Board.BLACK) || !pathFinder.hasPath(board,Board.WHITE)) {
+      // もとに戻す
+      board.horizontalWall[row][col] = false;
+      board.horizontalWall[row][col+1] = false;
+      board.horizontalCenter[row][col] = false;
+      return false;
+    }
+    
     // 手持ちの壁の枚数の更新と手番交代
     if(board.turn == Board.BLACK) {
       board.blackWalls--;
@@ -73,6 +82,15 @@ public class WallMove {
     board.verticalWall[row+1][col] = true;
     board.verticalCenter[row][col] = true;
 
+    // 経路確認
+    if(!pathFinder.hasPath(board,Board.BLACK) || !pathFinder.hasPath(board,Board.WHITE)) {
+      // もとに戻す
+      board.verticalWall[row][col] = true;
+      board.verticalWall[row+1][col] = true;
+      board.verticalCenter[row][col] = true;
+      return false;
+    }
+    
     // 手持ちの壁の枚数の更新と手番交代
     if(board.turn == Board.BLACK) {
       board.blackWalls--;
