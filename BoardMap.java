@@ -8,9 +8,9 @@ public class BoardMap {
   public int blackRow = 0;
   public int whiteCol = 0;
   public int whiteRow = 0;
-  
+   
+  public int[][] map = new int[17][17];
   public int[][] createMap(Board board) {
-    int[][] map = new int[17][17];
     // 横壁
     for (int row = 0; row < 8; row++) {
         for (int col = 0; col < 8; col++) {
