@@ -1,5 +1,5 @@
 // 壁の設置
-public class WallMove {
+public class WallPlace {
   // 横壁の設置
   public boolean placeHorizontalWall(Board board,int row, int col) {
 
