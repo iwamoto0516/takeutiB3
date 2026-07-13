@@ -4,6 +4,11 @@ public class BoardMap {
   public static final int BLACK = 2;
   public static final int WHITE = 3;
 
+  public int blackCol = 0;
+  public int blackRow = 0;
+  public int whiteCol = 0;
+  public int whiteRow = 0;
+  
   public int[][] createMap(Board board) {
     int[][] map = new int[17][17];
     // 横壁
@@ -32,9 +37,13 @@ public class BoardMap {
 
     // 黒駒
     map[board.blackRow * 2][board.blackCol * 2] = BLACK;
+    blackCol = board.blackCol * 2;
+    blackRow = board.blackRow * 2;
 
     // 白駒
     map[board.whiteRow * 2][board.whiteCol * 2] = WHITE;
+    whiteCol = board.whiteCol * 2;
+    whiteRow = board.whiteRow * 2;
 
     return map;
   }
