@@ -32,7 +32,11 @@ public class WallMove {
     board.horizontalCenter[row][col] = true;
 
     // 経路確認
-    if(!pathFinder.hasPath(board,Board.BLACK) || !pathFinder.hasPath(board,Board.WHITE)) {
+    BoardMap boardmap = new BoardMap();
+    boardmap.createMap(board);
+    Heiro heiro = new Heiro();
+    boolean ok = heiro.HeiroCheck(boardmap);
+    if(!ok) {
       // もとに戻す
       board.horizontalWall[row][col] = false;
       board.horizontalWall[row][col+1] = false;
@@ -83,11 +87,15 @@ public class WallMove {
     board.verticalCenter[row][col] = true;
 
     // 経路確認
-    if(!pathFinder.hasPath(board,Board.BLACK) || !pathFinder.hasPath(board,Board.WHITE)) {
+    BoardMap boardmap = new BoardMap();
+    boardmap.createMap(board);
+    Heiro heiro = new Heiro();
+    boolean ok = heiro.HeiroCheck(boardmap);
+    if(!ok) {
       // もとに戻す
-      board.verticalWall[row][col] = true;
-      board.verticalWall[row+1][col] = true;
-      board.verticalCenter[row][col] = true;
+      board.verticalWall[row][col] = false;
+      board.verticalWall[row+1][col] = false;
+      board.verticalCenter[row][col] = false;
       return false;
     }
     
