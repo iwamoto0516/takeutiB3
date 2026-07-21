@@ -176,6 +176,11 @@ public class PawnMove {
             return false;
         }
 
+        // 盤面の下端を超える場合は移動不可
+        if(currentRow + 1 >= 8) {
+            return false;
+        }
+
         if(board.horizontalWall[currentRow + 1][currentCol]) {
 
             // 左下
@@ -195,6 +200,11 @@ public class PawnMove {
             enemyCol == currentCol) {
 
         if(board.horizontalWall[currentRow - 1][currentCol]) {
+            return false;
+        }
+      
+        // 盤面の上端を超える場合は移動不可
+        if(currentRow - 2 < 0) {
             return false;
         }
 
@@ -218,6 +228,11 @@ public class PawnMove {
             return false;
         }
 
+        // 盤面の右端を超える場合は移動不可
+        if(currentCol + 1 >= 8) {
+            return false;
+        }
+
         if(board.verticalWall[currentRow][currentCol + 1]) {
 
             if(row == currentRow - 1 && col == currentCol + 1) {
@@ -235,6 +250,11 @@ public class PawnMove {
             enemyCol == currentCol - 1) {
 
         if(board.verticalWall[currentRow][currentCol - 1]) {
+            return false;
+        }
+
+        // 盤面の左端を超える場合は移動不可
+        if(currentCol - 2 < 0) {
             return false;
         }
 
