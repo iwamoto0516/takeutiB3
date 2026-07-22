@@ -22,7 +22,7 @@ public class QuoridorGUI extends JFrame {
             "人 vs 人", "人(黒) vs AI(白)", "AI(黒) vs 人(白)", "AI vs AI"
     });
     private final JComboBox<String> aiTypeSelect = new JComboBox<>(new String[]{
-            "Tanaka", "Random", "MCTS"
+            "Tanaka", "Random"
     });
 
     private Player blackController; // nullなら人間が操作
@@ -89,8 +89,6 @@ public class QuoridorGUI extends JFrame {
     private Player createAI(String type, int color) {
         if ("Random".equals(type)) {
             return new RandomPlayer(color);
-        } else if ("MCTS".equals(type)) {
-            return new MCTSPlayer(color);
         } else {
             return new Tanaka(color);
         }
