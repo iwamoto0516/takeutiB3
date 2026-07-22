@@ -5,16 +5,10 @@ public class Heiro {
     public boolean HeiroCheck(BoardMap boardmap) {
         //ゴールに到達できるか
         boolean blackOK = canReachGoal(boardmap, boardmap.blackRow, boardmap.blackCol, 16);
-        System.out.println(blackOK);
+        
 
         boolean whiteOK = canReachGoal(boardmap, boardmap.whiteRow, boardmap.whiteCol, 0);
-        System.out.println(whiteOK);
-
         
-        System.out.printf("(%d,%d)%n", boardmap.blackCol, boardmap.blackRow);
-
-        System.out.printf("(%d,%d)%n", boardmap.whiteCol, boardmap.whiteRow);
-
         
         return blackOK && whiteOK;
     }
@@ -38,7 +32,6 @@ public class Heiro {
         while (!queue.isEmpty()) { //キューが空でないなら真
 
             int[] cur = queue.poll(); //キューの先頭の要素をとってくる
-            System.out.print("(" + cur[0] + ", " + cur[1] + ")");
             int r = cur[0]; //取ってきた行
             int c = cur[1]; //取ってきた列
 
@@ -83,7 +76,6 @@ public class Heiro {
                 }
 
                 //範囲がでも壁でも訪問済みでもないマスを進み調査済みとする
-                System.out.print("(" + nr + ", " + nc + ")");
                 visited[nr][nc] = true; 
                 queue.add(new int[]{nr, nc});
             }
