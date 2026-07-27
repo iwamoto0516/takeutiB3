@@ -44,6 +44,40 @@ public class Board {
     verticalCenter = new boolean[8][8];
   }
 
+  public Board(Board other) {
+    this.blackRow = other.blackRow;
+    this.blackCol = other.blackCol;
+    this.whiteRow = other.whiteRow;
+    this.whiteCol = other.whiteCol;
+
+    this.blackWalls = other.blackWalls;
+    this.whiteWalls = other.whiteWalls;
+
+    this.turn = other.turn;
+
+    this.horizontalWall = new boolean[8][9];
+    this.verticalWall = new boolean[9][8];
+    this.horizontalCenter = new boolean[8][8];
+    this.verticalCenter = new boolean[8][8];
+
+    for (int r = 0; r < 8; r++) {
+        for (int c = 0; c < 9; c++) {
+            this.horizontalWall[r][c] = other.horizontalWall[r][c];
+        }
+    }
+    for (int r = 0; r < 9; r++) {
+        for (int c = 0; c < 8; c++) {
+            this.verticalWall[r][c] = other.verticalWall[r][c];
+        }
+    }
+    for (int r = 0; r < 8; r++) {
+        for (int c = 0; c < 8; c++) {
+            this.horizontalCenter[r][c] = other.horizontalCenter[r][c];
+            this.verticalCenter[r][c] = other.verticalCenter[r][c];
+        }
+    }
+  }
+
   // ゴール判定
   public int getWinner() {
       if(blackRow == 8) {
