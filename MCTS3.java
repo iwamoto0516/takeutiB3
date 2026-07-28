@@ -161,12 +161,12 @@ public class MCTS3 {
         WallPlace wp = new WallPlace();
         PawnMove pm = new PawnMove();
 
-        for (int step = 0; step < 20; step++) {
+        for (int step = 0; step < 5; step++) {
 
             int myWalls = (myColor == Board.BLACK ? tmp.blackWalls : tmp.whiteWalls);
 
             // --- 30% 移動 / 70% 壁 ---
-            boolean doMove = Math.random() < 0.3;
+            boolean doMove = Math.random() < 0;
 
             // --- 移動プレイアウト ---
             if (doMove || myWalls <= 0) {
