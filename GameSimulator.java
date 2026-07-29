@@ -106,6 +106,8 @@ public class GameSimulator {
                 return new Masuya2(color);
             case "Masuya":
                 return new Masuya(color);
+            case "ogasa":
+                return new ogasa(color);
             default:
                 throw new IllegalArgumentException("未知のプレイヤー名です: " + name);
         }
