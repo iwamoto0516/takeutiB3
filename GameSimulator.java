@@ -7,7 +7,7 @@ public class GameSimulator {
     private static final String PLAYER_A_NAME = "Tanaka";
     private static final String PLAYER_B_NAME = "Masuya";
  
-    private static final int TOTAL_GAMES = 100;
+    private static final int TOTAL_GAMES = 50;
     private static final int MAX_MOVES = 300; // 無限ループ防止のための手数上限
     // ================================================
  
