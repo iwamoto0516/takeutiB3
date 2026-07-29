@@ -6,8 +6,8 @@ import java.util.Random;
 
 public class Takahashi3 extends Player {
     private Random random = new Random();
-    // 探索の深さ：2手
-    private final int MAX_DEPTH = 2; 
+    // 探索の深さ：3手
+    private final int MAX_DEPTH = 3; 
     //継承
     public Takahashi3(int color) {
         super(color);
