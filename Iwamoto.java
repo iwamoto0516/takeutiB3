@@ -23,19 +23,22 @@ public class Iwamoto extends Player {
         for (Move move : moves) {
 
         Board next = cloneBoard(board);
-        applyMove(next, move);
+
+        if (!applyMove(next, move)) {
+            continue;
+        }
 
         int score = alphaBeta(next,
-                            2,
-                            Integer.MIN_VALUE,
-                            Integer.MAX_VALUE,
-                            false);
+                          2,
+                          Integer.MIN_VALUE,
+                          Integer.MAX_VALUE,
+                          false);
 
         if (score > bestScore) {
             bestScore = score;
             bestMove = move;
         }
-    }
+}
 
     if (bestMove == null) {
         return false;
@@ -321,7 +324,16 @@ public class Iwamoto extends Player {
 
         int value = Integer.MIN_VALUE;
         ArrayList<Move> moves = generateMoves(board);
-        
+        moves.sort((a, b) -> {
+            Board ba = cloneBoard(board);
+            applyMove(ba, a);
+
+            Board bb = cloneBoard(board);
+            applyMove(bb, b);
+
+            return evaluate(bb) - evaluate(ba);
+        });
+
         if (moves.isEmpty()) {
             return evaluate(board);
         }
@@ -351,6 +363,15 @@ public class Iwamoto extends Player {
     else{
         int value = Integer.MAX_VALUE;
         ArrayList<Move> moves = generateMoves(board);
+        moves.sort((a, b) -> {
+            Board ba = cloneBoard(board);
+            applyMove(ba, a);
+
+            Board bb = cloneBoard(board);
+            applyMove(bb, b);
+
+            return evaluate(ba) - evaluate(bb);
+        });
 
         if (moves.isEmpty()) {
             return evaluate(board);
@@ -430,9 +451,24 @@ public class Iwamoto extends Player {
     }
 
     if(walls > 0){
+        int enemyRow;
+        int enemyCol;
+
+    if (board.turn == Board.BLACK) {
+        enemyRow = board.whiteRow;
+        enemyCol = board.whiteCol;
+    } else {
+        enemyRow = board.blackRow;
+        enemyCol = board.blackCol;
+    }
     // ===== 横壁 =====
-    for (int row = 0; row < 8; row++) {
-        for (int col = 0; col < 8; col++) {
+    for (int row = Math.max(0, enemyRow - 2);
+     row <= Math.min(7, enemyRow + 1);
+     row++) {
+
+        for (int col = Math.max(0, enemyCol - 2);
+            col <= Math.min(7, enemyCol + 1);
+            col++) {
 
             Board trial = cloneBoard(board);
             WallPlace wall = new WallPlace();
@@ -451,8 +487,14 @@ public class Iwamoto extends Player {
     }
 
     // ===== 縦壁 =====
-    for (int row = 0; row < 8; row++) {
-        for (int col = 0; col < 8; col++) {
+    // 相手の周辺だけ調べる
+    for (int row = Math.max(0, enemyRow - 2);
+         row <= Math.min(7, enemyRow + 1);
+        row++) {
+
+        for (int col = Math.max(0, enemyCol - 2);
+             col <= Math.min(7, enemyCol + 1);
+            col++) {
 
             Board trial = cloneBoard(board);
             WallPlace wall = new WallPlace();
@@ -474,23 +516,22 @@ public class Iwamoto extends Player {
  }
 
 
- private void applyMove(Board board, Move move) {
+ private boolean applyMove(Board board, Move move) {
 
     if (move.wall) {
 
         WallPlace wall = new WallPlace();
 
         if (move.horizontal) {
-            wall.placeHorizontalWall(board, move.row, move.col);
+            return wall.placeHorizontalWall(board, move.row, move.col);
         } else {
-            wall.placeVerticalWall(board, move.row, move.col);
+            return wall.placeVerticalWall(board, move.row, move.col);
         }
 
     } else {
 
         PawnMove pawn = new PawnMove();
-        pawn.movePawn(board, move.row, move.col);
-
+        return pawn.movePawn(board, move.row, move.col);
     }
  }
 }
