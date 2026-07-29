@@ -5,7 +5,7 @@ public class GameSimulator {
     // 指定できる名前は createPlayer() 内の switch に対応するクラス名
     // 例: "Tanaka", "Iwamoto", "Masuya2" など
     private static final String PLAYER_A_NAME = "Tanaka";
-    private static final String PLAYER_B_NAME = "Masuya";
+    private static final String PLAYER_B_NAME = "";
  
     private static final int TOTAL_GAMES = 50;
     private static final int MAX_MOVES = 300; // 無限ループ防止のための手数上限
@@ -108,6 +108,10 @@ public class GameSimulator {
                 return new Masuya(color);
             case "ogasa":
                 return new ogasa(color);
+            case "Takahashi2":
+                return new Takahashi2(color);
+            case "Takahashi3":
+                return new Takahashi3(color);
             default:
                 throw new IllegalArgumentException("未知のプレイヤー名です: " + name);
         }
