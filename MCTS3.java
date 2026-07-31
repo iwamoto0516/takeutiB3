@@ -455,7 +455,7 @@ public class MCTS3 {
                 best = child;
             }
         }
-        System.out.println(best);
+        //System.out.println(best);
 
         if (best != null) {
             switch (best.moveType) {
