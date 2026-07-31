@@ -157,16 +157,20 @@ public class MCTS3 {
         Board tmp = new Board(board);
         int myColor    = tmp.turn;
         int enemyColor = (myColor == Board.BLACK ? Board.WHITE : Board.BLACK);
+        int myColor0    = myColor;
+        int enemyColor0 = enemyColor;
 
         WallPlace wp = new WallPlace();
         PawnMove pm = new PawnMove();
+        
+        double value = 0;
 
-        for (int step = 0; step < 5; step++) {
+        for (int step = 0; step < 70; step++) {
 
             int myWalls = (myColor == Board.BLACK ? tmp.blackWalls : tmp.whiteWalls);
 
             // --- 30% 移動 / 70% 壁 ---
-            boolean doMove = Math.random() < 0;
+            boolean doMove = Math.random() < 0.5;
 
             // --- 移動プレイアウト ---
             if (doMove || myWalls <= 0) {
@@ -198,6 +202,18 @@ public class MCTS3 {
 
                 }
 
+                // ★ 手番を切り替える
+                tmp.turn = (tmp.turn == Board.BLACK ? Board.WHITE : Board.BLACK);
+
+                // ★ myColor / enemyColor を更新する
+                myColor = tmp.turn;
+                enemyColor = (myColor == Board.BLACK ? Board.WHITE : Board.BLACK);
+                if (shortestPath(tmp, myColor) == 0) {
+                    return 1;
+                } else if (shortestPath(tmp, enemyColor) == 0) {
+                    return -1;
+                }
+                
                 continue;
             }
 
@@ -251,13 +267,13 @@ public class MCTS3 {
         int myDistBefore    = shortestPath(board, rootColor);
         int myDistAfter     = shortestPath(tmp, rootColor);
 
-        //if (myDistAfter == 0) return 100;
-        if (enemyDistAfter == 0) return -100;
-
-        double value = 0;
-        value += (enemyDistAfter - enemyDistBefore) * 2;
-        value += (myDistBefore - myDistAfter) * 1.0;
-
+        if (myDistAfter > enemyDistAfter) {
+            value = -1; 
+        } else if (myDistAfter < enemyDistAfter) {
+            value = 1;
+        } else {
+            value = 0;
+        }
         return value;
     }
 
